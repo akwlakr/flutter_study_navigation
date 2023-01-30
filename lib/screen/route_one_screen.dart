@@ -1,9 +1,8 @@
-
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:navigation/layout/main_layout.dart';
-
+import 'package:navigation/screen/route_two_screen.dart';
 
 class RouteOneScreen extends StatefulWidget {
   final int number;
@@ -23,15 +22,27 @@ class _RouteOneScreenState extends State<RouteOneScreen> {
     return MainLayout(
       title: "Route One Screen",
       children: [
-      Text(
-        number.toString(),
-      ),
-      ElevatedButton(
-        onPressed: () {
-          Navigator.of(context).pop(456);
-        },
-        child: Text("Pop"),
-      )
-    ],);
+        Text(
+          number.toString(),
+        ),
+        ElevatedButton(
+          onPressed: () {
+            Navigator.of(context).pop(456);
+          },
+          child: Text("Pop"),
+        ),
+        ElevatedButton(
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                  builder: (_) => RouteTwoScreen(),
+                  settings: RouteSettings(arguments: 712312)
+              ),
+            );
+          },
+          child: Text("Push"),
+        ),
+      ],
+    );
   }
 }
