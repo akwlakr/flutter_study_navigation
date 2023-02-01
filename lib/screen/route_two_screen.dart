@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:navigation/layout/main_layout.dart';
+import 'package:navigation/screen/route_three_screen.dart';
 
 class RouteTwoScreen extends StatefulWidget {
   const RouteTwoScreen({Key? key}) : super(key: key);
@@ -27,6 +28,33 @@ class _RouteTwoScreenState extends State<RouteTwoScreen> {
             Navigator.of(context).pop();
           },
           child: Text("Pop"),
+        ),
+        ElevatedButton(
+          onPressed: () {
+            Navigator.of(context).pushNamed("/Three", arguments: 19202);
+          },
+          child: Text("Push Named"),
+        ),
+        ElevatedButton(
+          onPressed: () {
+            Navigator.of(context).pushReplacementNamed(
+              "/Three",
+              //MaterialPageRoute(builder: (BuildContext context) => RouteThreeScreen(),),
+              arguments: 999999,
+            );
+          },
+          child: Text("Push Replace"),
+        ),
+        ElevatedButton(
+          onPressed: () {
+            Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(
+                builder: (BuildContext context) => RouteThreeScreen(),
+              ),
+              (route) => (route.settings.name == "/"),
+            );
+          },
+          child: Text("Push Remove Until"),
         ),
       ],
     );

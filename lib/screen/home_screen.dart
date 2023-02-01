@@ -12,20 +12,38 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return MainLayout(title: "Home Screen", children: [
-      ElevatedButton(
-        onPressed: () async {
-          int result = await Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (BuildContext context) => RouteOneScreen(
-                number: 123,
+    return WillPopScope(
+      onWillPop: () async {
+        bool isCanPop = Navigator.of(context).canPop();
+        return isCanPop;
+      },
+      child: MainLayout(title: "Home Screen", children: [
+        ElevatedButton(
+          onPressed: () async {
+            int result = await Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) => RouteOneScreen(
+                  number: 123,
+                ),
               ),
-            ),
-          );
-          print(result);
-        },
-        child: Text("Push"),
-      )
-    ]);
+            );
+            print(result);
+          },
+          child: Text("Push"),
+        ),
+        ElevatedButton(
+          onPressed: () {
+            Navigator.of(context).maybePop();
+          },
+          child: Text("Pop - maybePop"),
+        ),
+        ElevatedButton(
+          onPressed: () {
+            print(Navigator.of(context).canPop());
+          },
+          child: Text("Pop - canPop"),
+        ),
+      ]),
+    );
   }
 }
